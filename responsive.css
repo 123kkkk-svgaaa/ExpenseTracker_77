@@ -1,0 +1,78 @@
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 0.5rem;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .card {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .card h2 {
+        font-size: 1.25rem;
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .budget-controls {
+        flex-direction: column;
+    }
+    
+    .budget-controls input {
+        min-width: auto;
+    }
+    
+    .expense-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .expense-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .expense-actions {
+        align-self: flex-end;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .filters {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 1.5rem 0;
+    }
+    
+    header h1 {
+        font-size: 1.75rem;
+    }
+    
+    .card {
+        padding: 0.75rem;
+    }
+    
+    .budget-numbers {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+}
