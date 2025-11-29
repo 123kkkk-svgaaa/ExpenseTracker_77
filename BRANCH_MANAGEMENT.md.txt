@@ -1,0 +1,194 @@
+分支管理实践记录
+
+📋 分支策略概述
+
+本项目采用 Git Flow分支模型，结合功能分支工作流，确保代码质量和开发效率。
+
+🌳 分支结构
+main (稳定版本)
+│
+├── develop (开发集成分支)
+│ ├── feature/add-charts (图表功能)
+│ ├── feature/export-pdf (PDF导出)
+│ ├── feature/multi-currency (多币种支持)
+│ ├── bugfix/storage-issues (存储修复)
+│ └── hotfix/critical-bug (紧急修复)
+│
+└── release/v1.0.0 (发布分支)
+
+🔄 分支操作记录
+
+1. 初始分支创建
+bash
+# 创建开发分支
+git checkout -b develop
+git push -u origin develop
+# 创建功能分支
+git checkout -b feature/add-charts
+2. 功能开发流程
+功能分支: feature/add-charts
+目标: 添加支出统计图表功能
+
+开发过程:
+
+bash
+创建功能分支
+git checkout -b feature/add-charts
+
+ 开发提交记录
+git add src/js/chart.js
+git commit -m "feat: 集成Chart.js图表库"
+
+git add src/js/app.js
+git commit -m "feat: 实现支出分类饼图功能"
+
+git add src/css/chart.css
+git commit -m "feat: 添加图表响应式样式"
+
+ 推送到远程
+git push -u origin feature/add-charts
+合并过程:
+
+bash
+#切换到develop分支
+git checkout develop
+
+拉取最新代码
+git pull origin develop
+
+合并功能分支
+git merge feature/add-charts
+
+遇到冲突，手动解决
+冲突文件: src/js/app.js
+冲突解决示例
+冲突内容:
+
+javascript
+<<<<<<< HEAD
+// develop分支的统计函数
+function calculateStats() {
+    return monthlyStats;
+}
+=======
+// feature分支的统计函数  
+function calculateStats() {
+    const stats = processMonthlyData();
+    return generateChartData(stats);
+}
+>>>>>>> feature/add-charts
+解决方案:
+
+javascript
+// 合并后的优化版本
+function calculateStats() {
+    const stats = processMonthlyData();
+    return {
+        rawData: stats,
+        chartData: generateChartData(stats),
+        summary: generateSummary(stats)
+    };
+}
+解决步骤:
+bash
+#手动编辑解决冲突
+git add src/js/app.js
+git commit -m "fix: 解决calculateStats函数合并冲突"
+
+# 完成合并
+git push origin develop
+3. Bug修复分支
+分支: bugfix/storage-issues
+问题: 数据存储在某些浏览器中失效
+
+修复过程:
+
+bash
+# 从develop创建修复分支
+git checkout -b bugfix/storage-issues
+
+# 修复代码
+git add src/js/storage.js
+git commit -m "fix: 修复localStorage兼容性问题"
+
+# 测试验证
+git add test/storage.test.js
+git commit -m "test: 添加存储兼容性测试"
+
+# 合并到develop
+git checkout develop
+git merge bugfix/storage-issues
+4. 发布流程
+版本发布: v1.0.0
+bash
+# 创建发布分支
+git checkout -b release/v1.0.0
+
+# 版本号更新和最终测试
+git add package.json
+git commit -m "chore: 更新版本号至v1.0.0"
+
+# 合并到main分支
+git checkout main
+git merge release/v1.0.0
+
+# 打标签
+git tag -a v1.0.0 -m "版本v1.0.0发布"
+git push --tags
+
+# 合并回develop
+git checkout develop
+git merge release/v1.0.0
+分支统计
+分支类型	数量	状态	                说明
+feature	3	2合并, 1开发中	功能开发分支
+bugfix	2	全部合并	        问题修复分支
+hotfix	0	-	                紧急修复分支
+release	1	已发布	         版本发布分支
+🎯 分支管理最佳实践
+1. 命名规范
+功能分支: feature/功能描述
+
+修复分支: bugfix/问题描述
+
+发布分支: release/版本号
+
+热修复: hotfix/紧急问题
+
+2. 提交规范
+text
+feat: 新功能
+fix: 修复问题
+docs: 文档更新
+style: 代码格式
+refactor: 重构
+test: 测试相关
+chore: 构建过程
+3. 合并策略
+使用 --no-ff 保留分支历史
+
+代码审查后才合并
+
+确保CI测试通过
+
+📝 经验总结
+成功实践
+清晰的分离 - 功能开发互不干扰
+
+代码审查 - 保证代码质量
+
+及时合并 - 避免长期分支冲突
+
+遇到的问题
+合并冲突 - 通过沟通和规范解决
+
+分支混乱 - 定期清理已合并分支
+
+代码重复 - 通过代码审查发现
+
+改进措施
+建立更严格的分支保护规则
+
+自动化CI/CD流程
+
+定期的分支清理
