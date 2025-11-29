@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人支出追踪器 - 学号77</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>💰 个人支出追踪器</h1>
+            <p>学号: 77 | 轻松管理您的日常开支</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- 添加支出表单 -->
+        <section class="card">
+            <h2>📝 添加新支出</h2>
+            <form id="expense-form">
+                <div class="form-grid">
+                    <input type="date" id="date" required>
+                    <select id="category" required>
+                        <option value="">选择类别</option>
+                        <option value="food">🍔 餐饮</option>
+                        <option value="transport">🚗 交通</option>
+                        <option value="shopping">🛍️ 购物</option>
+                        <option value="entertainment">🎬 娱乐</option>
+                        <option value="study">📚 学习</option>
+                        <option value="other">📦 其他</option>
+                    </select>
+                    <input type="number" id="amount" placeholder="金额" step="0.01" min="0" required>
+                    <input type="text" id="description" placeholder="备注说明">
+                    <button type="submit" class="btn-primary">添加支出</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- 预算设置 -->
+        <section class="card">
+            <h2>💰 月度预算</h2>
+            <div class="budget-controls">
+                <input type="number" id="monthly-budget" placeholder="设置月度预算" min="0" step="100">
+                <button onclick="setBudget()" class="btn-secondary">设置预算</button>
+            </div>
+            <div id="budget-display" class="budget-display"></div>
+        </section>
+
+        <!-- 支出统计 -->
+        <section class="card">
+            <h2>📊 支出统计</h2>
+            <div id="stats-container"></div>
+            <div class="action-buttons">
+                <button onclick="exportToCSV()" class="btn-outline">导出CSV数据</button>
+                <button onclick="clearAllData()" class="btn-danger">清空所有数据</button>
+            </div>
+        </section>
+
+        <!-- 支出列表 -->
+        <section class="card">
+            <h2>📋 支出记录</h2>
+            <div class="filters">
+                <select id="filter-category" onchange="filterExpenses()">
+                    <option value="">所有类别</option>
+                    <option value="food">餐饮</option>
+                    <option value="transport">交通</option>
+                    <option value="shopping">购物</option>
+                    <option value="entertainment">娱乐</option>
+                    <option value="study">学习</option>
+                    <option value="other">其他</option>
+                </select>
+                <input type="month" id="filter-month" onchange="filterExpenses()">
+            </div>
+            <div id="expenses-container"></div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ExpenseTracker_77 - 学号77 - MIT许可证</p>
+            <p>期末考查项目 | 个人支出管理系统</p>
+        </div>
+    </footer>
+
+    <script src="js/storage.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
